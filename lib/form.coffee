@@ -4,9 +4,9 @@ _ = require 'underscore'
 
 module.exports = (builder) -> form =
 
-    fieldset: (key, text, elem, post = ->) ->
-        {fieldset, label, div, input} = builder
-        fieldset class: 'control-group', ->
+    controlGroup: (key, text, elem, post = ->) ->
+        {div, label, div, input} = builder
+        div class: 'control-group', ->
             label class: 'control-label', for: key, text
             div class: 'controls', ->
                 elem()
@@ -15,12 +15,12 @@ module.exports = (builder) -> form =
     input: (key, value, text, type, post = ->) ->
         {input} = builder
         inp = -> input class: 'xlarge', id: key, type: type, name: key, value: value
-        form.fieldset key, text, inp, post
+        form.controlGroup key, text, inp, post
 
     readonly: (key, value, text, type, post = ->) ->
         {input} = builder
         inp = -> input class: 'input-xlarge uneditable-input', id: key, type: type, name: key, value: value, readonly: ''
-        form.fieldset key, text, inp, post
+        form.controlGroup key, text, inp, post
 
     hidden: (key, value) ->
         builder.input name: key, value: value, type: 'hidden'
@@ -28,7 +28,7 @@ module.exports = (builder) -> form =
     textarea: (key, value, text) ->
         {textarea} = builder
         inp = -> textarea class: 'input-xlarge', name: key, id: key, value
-        form.fieldset key, text, inp
+        form.controlGroup key, text, inp
 
     checkbox: (key, value, checked) ->
         {input} = builder
@@ -48,7 +48,7 @@ module.exports = (builder) -> form =
 
 
     fieldCheckbox: (key, value, text, checked = false) ->
-        form.fieldset key, text, => form.checkbox key, value, checked
+        form.controlGroup key, text, => form.checkbox key, value, checked
 
     # id is the select html id
     # values is a key-value collection
@@ -66,7 +66,7 @@ module.exports = (builder) -> form =
 
     standardSelect: (id, values, selected, text) ->
         elem = => form.select id, values, selected
-        form.fieldset id, text, elem
+        form.controlGroup id, text, elem
 
     multipleSelect: (id, values, selected) ->
         assert _.isObject(values), "values is no array #{values}"
@@ -79,11 +79,11 @@ module.exports = (builder) -> form =
 
     fieldSelectMultiple: (id, values, selected, text) ->
         elem = => form.multipleSelect id, values, selected
-        form.fieldset id, text, elem
+        form.controlGroup id, text, elem
 
     fieldSelect: (id, values, selected, text) ->
         elem = => form.select id, values, selected
-        form.fieldset id, text, elem
+        form.controlGroup id, text, elem
 
     text: (key, value, text, post) -> form.input key, value, text, 'text', post
 
