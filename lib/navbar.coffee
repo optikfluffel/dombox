@@ -1,4 +1,4 @@
-module.exports = (builder) ->
+module.exports = (builder) -> navbar =
 
     brand: (text, href) -> builder.a {class: 'brand', href: href}, text
 
@@ -6,9 +6,11 @@ module.exports = (builder) ->
         builder.a href: href, ->
             builder.img {class: 'brand', src: src, width: width, style: style}
 
-    navbar: (inner) ->
-
-        builder.div {class: 'navbar navbar-fixed'}, ->
+    navbar: (style, inner) ->
+        navClass = 'navbar'
+        navClass += ' ' + style if style
+        inner = style unless inner
+        builder.div {class: navClass}, ->
             builder.div {class: 'navbar-inner'}, ->
                 builder.div {class: 'container'}, inner
 
@@ -18,9 +20,18 @@ module.exports = (builder) ->
         builder.li attrs, -> builder.a {href: href}, text
 
     nav:
-
         left: (inner) -> builder.ul {class: 'nav'}, inner
         right: (inner) -> builder.ul {class: 'nav pull-right'}, inner
+
+    collapse: (inner) ->
+        navbar.collapseButton '.nav-collapse'
+        builder.div {class: 'nav-collapse'}, inner
+
+    collapseButton: (target) ->
+        builder.a class: 'btn btn-navbar', 'data-toggle': 'collapse', 'data-target': target, ->
+            builder.span class: 'icon-bar', ''
+            builder.span class: 'icon-bar', ''
+            builder.span class: 'icon-bar', ''
 
     dropdown: (text, inner) ->
         builder.li {class: 'dropdown'}, ->
