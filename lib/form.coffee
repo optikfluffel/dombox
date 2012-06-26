@@ -50,11 +50,8 @@ module.exports = (builder) -> form =
     fieldCheckbox: (key, value, text, checked = false) ->
         form.controlGroup key, text, => form.checkbox key, value, checked
 
-    # id is the select html id
     # values is a key-value collection
-    # selected is the selected key
-    select: (id, values, selected) ->
-        assert selected?, 'selected is missing'
+    select: (id, values, selected = '') ->
         selected = selected.toString()
         {select, option} = builder
         select name: id, id: id, ->
