@@ -25,7 +25,7 @@ module.exports = (builder) -> form =
     hidden: (key, value) ->
         builder.input name: key, value: value, type: 'hidden'
 
-    textarea: (key, value, text) ->
+    textarea: (key, value, text = '') ->
         {textarea} = builder
         inp = -> textarea class: 'input-xlarge', name: key, id: key, value
         form.controlGroup key, text, inp
