@@ -25,14 +25,10 @@ module.exports = (builder) -> form =
     hidden: (key, value) ->
         builder.input name: key, value: value, type: 'hidden'
 
-    textarea: (key, value, text = '', rows) ->
+    textarea: (key, value, text = '', attr = {}) ->
         {textarea} = builder
-        attr =
-            class: 'input-xlarge'
-            name: key
-            id: key
-        attr.rows = rows if rows?
-        inp = -> textarea attr, value
+        a = _.extend {class: 'input-xlarge', name: key, id: key}, attr
+        inp = -> textarea a, value
         form.controlGroup key, text, inp
 
     checkbox: (key, value, checked) ->
