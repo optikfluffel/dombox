@@ -14,6 +14,7 @@ builder.form ->
         0: 'Superhero'
         1: 'Villain'
     form.select 'profession', professions, 0
+    form.textarea 'about', '', 'Something about you', {rows: 10, cols: 10}
     form.submitButton 'Update your profile'
 
 
