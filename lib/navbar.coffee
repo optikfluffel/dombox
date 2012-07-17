@@ -36,7 +36,7 @@ module.exports = (builder) -> navbar =
     dropdown: (text, inner) ->
         builder.li {class: 'dropdown'}, ->
             builder.a {href: '#', class: 'dropdown-toggle', 'data-toggle': 'dropdown'}, ->
-                builder.addText text
+                builder.text text
                 builder.b {class: 'caret'}, ''
             builder.ul {class: 'dropdown-menu'}, inner
 
