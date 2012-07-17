@@ -1,9 +1,9 @@
 #!/usr/bin/env coffee
-drykup = require 'drykup'
+kup = require 'kup'
 
 {alert} = require '../lib'
 
-builder = drykup()
+builder = new kup
 
 alert builder, 'normal message'
 alert builder, 'error', 'error'

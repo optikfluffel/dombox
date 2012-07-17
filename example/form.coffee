@@ -1,9 +1,12 @@
 #!/usr/bin/env coffee
-drykup = require 'drykup'
+kup = require 'kup'
+_ = require 'underscore'
 
 Form = require '../lib/form'
 
-builder = drykup()
+builder = new kup
+_.bindAll builder
+
 form = Form builder
 
 builder.form ->

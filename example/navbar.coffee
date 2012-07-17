@@ -1,9 +1,12 @@
 #!/usr/bin/env coffee
-drykup = require 'drykup'
+kup = require 'kup'
+_ = require 'underscore'
 
 Navbar = require '../lib/navbar'
 
-builder = drykup()
+builder = new kup
+_.bindAll builder
+
 navbar = Navbar builder
 
 navbar.navbar ->
