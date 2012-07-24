@@ -17,7 +17,10 @@ builder.form ->
         0: 'Superhero'
         1: 'Villain'
     form.select 'profession', professions, 0
+    food = ['cake', 'cheese', 'icecream']
+    form.select 'food', food
     form.textarea 'about', '', 'Something about you', {rows: 10, cols: 10}
+    form.dayField 'datetime', null, 'Your birthday'
     form.submitButton 'Update your profile'
 
 
