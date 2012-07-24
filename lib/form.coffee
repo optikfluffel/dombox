@@ -2,6 +2,15 @@ assert = require 'assert'
 moment = require 'moment'
 _ = require 'underscore'
 
+time =
+    yearmonthday: '%Y-%m-%d'
+    hourMinute: '%H:%i'
+    datetime: 'Y-%m-%d %H:%i'
+
+initDate = (id, format) ->
+    fun = -> $('#ID').AnyTime_picker format: 'FORMAT'
+    fun.toString().replace('ID', id).replace('FORMAT', format)
+
 module.exports = (builder) -> form =
 
     controlGroup: (key, text, elem, post = ->) ->
@@ -66,7 +75,7 @@ module.exports = (builder) -> form =
         elem = => form.select id, values, selected
         form.controlGroup id, text, elem
 
-    multipleSelect: (id, values, selected) ->
+    multipleSelect: (id, values, selected = []) ->
         assert _.isObject(values), "values is no array #{values}"
         assert _.isArray(selected), "selected is no array #{selected}"
         stringKeys = _.map selected, (e) -> e.toString()
@@ -107,25 +116,22 @@ module.exports = (builder) -> form =
         a href: href, class: "btn#{type}", onclick: "return confirm('#{alert}')", text
 
     dayField: (key, value, text) ->
+        value ?= new Date()
         assert value instanceof Date, 'value is no Date Object', value
         dateString = moment(value).format 'YYYY-MM-DD'
         form.text key, dateString, text
+        builder.script -> builder.unsafe initDate key, time.yearmonthday
 
     dayFieldOptional: (key, value, text) =>
         dateString = if value instanceof Date then moment(value).format 'YYYY-MM-DD' else value
         post = => form.button 'clear', 'button', '', "#{key}Clear"
         form.text key, dateString, text, post
 
-    timeField: (key, value, text) ->
-        throw new Error "datehelper is deprecated"
-        # timeDate = datehelper.timeToDate value
-        # assert timeDate instanceof Date, 'no date instance'
-        # timeString = datehelper.getHI timeDate
-        # form.text key, timeString, text
-
     dateTimeField: (key, value, text) ->
+        value ?= new Date()
         assert value instanceof Date, 'value is no Date Object', value
         form.text key, (moment value).format('YYYY-MM-DD HH:mm'), text
+        builder.script -> builder.unsafe initDate key, time.datetime
 
     script: (f) ->
         scriptTag = builder.script
