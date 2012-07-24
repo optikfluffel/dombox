@@ -120,7 +120,7 @@ module.exports = (builder) -> form =
         assert value instanceof Date, 'value is no Date Object', value
         dateString = moment(value).format 'YYYY-MM-DD'
         form.text key, dateString, text
-        builder.script -> builder.unsafe initDate key, time.yearmonthday
+        form.script initDate key, time.yearmonthday
 
     dayFieldOptional: (key, value, text) =>
         dateString = if value instanceof Date then moment(value).format 'YYYY-MM-DD' else value
@@ -131,10 +131,9 @@ module.exports = (builder) -> form =
         value ?= new Date()
         assert value instanceof Date, 'value is no Date Object', value
         form.text key, (moment value).format('YYYY-MM-DD HH:mm'), text
-        builder.script -> builder.unsafe initDate key, time.datetime
+        form.script initDate key, time.datetime
 
     script: (f) ->
-        scriptTag = builder.script
-        scriptTag "$(#{f.toString()})"
+        builder.script -> builder.unsafe "$(#{f.toString()});"
 
     number: (id, value, text) -> form.input id, value, text, 'number'
