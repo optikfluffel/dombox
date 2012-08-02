@@ -8,8 +8,8 @@ module.exports = (builder) -> navbar =
 
     navbar: (style, inner) ->
         navClass = 'navbar'
-        navClass += ' ' + style if style
-        inner = style unless inner
+        [style, inner] = [inner, style] unless inner?
+        navClass += " #{style}" if style?
         builder.div {class: navClass}, ->
             builder.div {class: 'navbar-inner'}, ->
                 builder.div {class: 'container'}, inner
