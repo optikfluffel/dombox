@@ -40,4 +40,4 @@ module.exports = (builder) -> navbar =
                 builder.b {class: 'caret'}, ''
             builder.ul {class: 'dropdown-menu'}, inner
 
-    divider: -> builder.li {class: 'vertical-divider'}
+    divider: -> builder.li {class: 'divider'}
