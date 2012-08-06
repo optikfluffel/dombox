@@ -52,13 +52,16 @@ module.exports = (builder) -> form =
 
     inlineCheckbox: (key, value, checked, description = '') ->
         {input, p, label} = builder
-        label class: 'checkbox inline', =>
+        label class: 'checkbox inline', ->
             form.checkbox key, value, checked
-            p description
-
+            description() if _.isFunction description
+            p description unless _.isFunction description
 
     fieldCheckbox: (key, value, text, checked = false) ->
-        form.controlGroup key, text, => form.checkbox key, value, checked
+        form.controlGroup key, text, -> form.checkbox key, value, checked
+
+    fieldInlineCheckbox: (key, value, text, checked = false) ->
+        form.controlGroup key, '', -> form.inlineCheckbox key, value, checked, text
 
     # values is a key-value collection
     select: (id, values, selected = '') ->
