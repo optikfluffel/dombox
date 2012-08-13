@@ -3,11 +3,11 @@
     "name": "dombox",
     "version": "1.2.4",
     "dependencies": {
-        "moment": "1.6.2",
+        "moment": "1.7.0",
         "underscore": "1.3.3"
     },
     "devDependencies": {
-        "kup": "1.3.2"
+        "kup": "1.3.3"
     },
     "main": "lib/index"
 }
