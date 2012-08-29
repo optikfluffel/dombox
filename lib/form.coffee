@@ -136,6 +136,11 @@ module.exports = (builder) -> form =
         form.text key, (moment value).format('YYYY-MM-DD HH:mm'), text
         form.script initDate key, time.datetime
 
+    timeField: (key, value, text) ->
+        t = moment value, 'HH:mm'
+        form.text key, t.format('HH:mm'), text
+        form.script initDate key, time.hourMinute
+
     script: (f) ->
         builder.script -> builder.unsafe "$(#{f.toString()});"
 
