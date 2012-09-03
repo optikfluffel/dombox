@@ -5,7 +5,7 @@ _ = require 'underscore'
 time =
     yearmonthday: '%Y-%m-%d'
     hourMinute: '%H:%i'
-    datetime: 'Y-%m-%d %H:%i'
+    datetime: '%Y-%m-%d %H:%i'
 
 initDate = (id, format) ->
     fun = -> $('#ID').AnyTime_picker format: 'FORMAT'
