@@ -25,7 +25,7 @@ module.exports = (builder) -> navbar =
 
     collapse: (inner) ->
         navbar.collapseButton '.nav-collapse'
-        builder.div {class: 'nav-collapse'}, inner
+        builder.div {class: 'nav-collapse collapse'}, inner
 
     collapseButton: (target) ->
         builder.a class: 'btn btn-navbar', 'data-toggle': 'collapse', 'data-target': target, ->
