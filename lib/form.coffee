@@ -14,48 +14,42 @@ initDate = (id, format) ->
 module.exports = (builder) -> form =
 
     controlGroup: (key, text, elem, post = ->) ->
-        {div, label, div, input} = builder
-        div class: 'control-group', ->
-            label class: 'control-label', for: key, text
-            div class: 'controls', ->
+        builder.div class: 'control-group', ->
+            builder.label class: 'control-builder.label', for: key, text
+            builder.div class: 'controls', ->
                 elem()
                 post()
 
     input: (key, value, text, type, post = ->) ->
-        {input} = builder
-        inp = -> input class: 'xlarge', id: key, type: type, name: key, value: value
+        inp = -> builder.input class: 'xlarge', id: key, type: type, name: key, value: value
         form.controlGroup key, text, inp, post
 
     readonly: (key, value, text, type, post = ->) ->
-        {input} = builder
-        inp = -> input class: 'input-xlarge uneditable-input', id: key, type: type, name: key, value: value, readonly: ''
+        inp = -> builder.input class: 'builder.input-xlarge uneditable-builder.input', id: key, type: type, name: key, value: value, readonly: ''
         form.controlGroup key, text, inp, post
 
     hidden: (key, value) ->
         builder.input name: key, value: value, type: 'hidden'
 
     textarea: (key, value, text = '', attr = {}) ->
-        {textarea} = builder
-        a = _.extend {class: 'input-xlarge', name: key, id: key}, attr
-        inp = -> textarea a, value
+        a = _.extend {class: 'builder.input-xlarge', name: key, id: key}, attr
+        inp = -> builder.textarea a, value
         form.controlGroup key, text, inp
 
     checkbox: (key, value, checked) ->
-        {input} = builder
         defaults =
             type: 'checkbox'
             name: key
             id: key
             value: value
         defaults.checked = 'checked' if checked
-        input defaults
+        builder.input defaults
 
     inlineCheckbox: (key, value, checked, description = '') ->
-        {input, p, label} = builder
-        label class: 'checkbox inline', ->
+        builder.label class: 'checkbox inline', ->
             form.checkbox key, value, checked
             description() if _.isFunction description
-            p description unless _.isFunction description
+            builder.p description unless _.isFunction description
 
     fieldCheckbox: (key, value, text, checked = false) ->
         form.controlGroup key, text, -> form.checkbox key, value, checked
@@ -66,13 +60,12 @@ module.exports = (builder) -> form =
     # values is a key-value collection
     select: (id, values, selected = '') ->
         selected = selected.toString()
-        {select, option} = builder
-        select name: id, id: id, ->
+        builder.select name: id, id: id, ->
             _.each values, (value, key) ->
                 config =
                     value: key
                 config.selected = 'selected' if selected is key
-                option config, value
+                builder.option config, value
 
     standardSelect: (id, values, selected, text) ->
         elem = => form.select id, values, selected
@@ -82,7 +75,6 @@ module.exports = (builder) -> form =
         assert _.isObject(values), "values is no array #{values}"
         assert _.isArray(selected), "selected is no array #{selected}"
         stringKeys = _.map selected, (e) -> e.toString()
-        {p} = builder
         isSelected = (key) -> _.include stringKeys, key
         _.each values, (v, key) => form.inlineCheckbox "#{id}[]", key, isSelected(key), v
 
@@ -95,28 +87,27 @@ module.exports = (builder) -> form =
         elem = => form.select id, values, selected
         form.controlGroup id, text, elem
 
-    text: (key, value, text, post) -> form.input key, value, text, 'text', post
+    text: (key, value, text, post) ->
+        form.input key, value, text, 'text', post
 
-    password: (key, value, text, post) -> form.input key, value, text, 'password', post
+    password: (key, value, text, post) ->
+        form.input key, value, text, 'password', post
 
     button: (text, type, clazz = '', id) ->
-        {button} = builder
         attr = type: type, class: "btn #{clazz}"
         attr.id = id if id?
-        button attr, text
+        builder.button attr, text
 
     submitButton: (text) ->
         form.button text, 'submit'
 
     linkButton: (text, href, type = '') ->
         type = " btn-#{type}" unless type is ''
-        {a} = builder
-        a href: href, class: "btn#{type}", text
+        builder.a href: href, class: "btn#{type}", text
 
     linkConfirmButton: (text, href, alert='Are you sure?', type='') ->
         type = " btn-#{type}" unless type is ''
-        {a} = builder
-        a href: href, class: "btn#{type}", onclick: "return confirm('#{alert}')", text
+        builder.a href: href, class: "btn#{type}", onclick: "return confirm('#{alert}')", text
 
     dayField: (key, value, text) ->
         value ?= new Date()
@@ -144,4 +135,5 @@ module.exports = (builder) -> form =
     script: (f) ->
         builder.script -> builder.unsafe "$(#{f.toString()});"
 
-    number: (id, value, text) -> form.input id, value, text, 'number'
+    number: (id, value, text) ->
+        form.input id, value, text, 'number'
