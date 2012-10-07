@@ -15,7 +15,7 @@ module.exports = (builder) -> form =
 
     controlGroup: (key, text, elem, post = ->) ->
         builder.div class: 'control-group', ->
-            builder.label class: 'control-builder.label', for: key, text
+            builder.label class: 'control-label', for: key, text
             builder.div class: 'controls', ->
                 elem()
                 post()
@@ -25,14 +25,14 @@ module.exports = (builder) -> form =
         form.controlGroup key, text, inp, post
 
     readonly: (key, value, text, type, post = ->) ->
-        inp = -> builder.input class: 'builder.input-xlarge uneditable-builder.input', id: key, type: type, name: key, value: value, readonly: ''
+        inp = -> builder.input class: 'builder-xlarge uneditable-input', id: key, type: type, name: key, value: value, readonly: ''
         form.controlGroup key, text, inp, post
 
     hidden: (key, value) ->
         builder.input name: key, value: value, type: 'hidden'
 
     textarea: (key, value, text = '', attr = {}) ->
-        a = _.extend {class: 'builder.input-xlarge', name: key, id: key}, attr
+        a = _.extend {class: 'builder-xlarge', name: key, id: key}, attr
         inp = -> builder.textarea a, value
         form.controlGroup key, text, inp
 
