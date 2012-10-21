@@ -32,7 +32,7 @@ module.exports = (builder) -> form =
         form.controlGroup key, text, inp, post
 
     hidden: (key, value) ->
-        builder.input name: key, value: value, type: 'hidden'
+        builder.input name: key, id: key, value: value, type: 'hidden'
 
     textarea: (key, value, text = '', attr = {}) ->
         {textarea} = builder
