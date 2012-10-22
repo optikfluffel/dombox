@@ -3,8 +3,8 @@
     "name": "dombox",
     "version": "1.2.10",
     "dependencies": {
-        "moment": "1.7.0",
-        "underscore": "1.3.3"
+        "moment": "1.7.2",
+        "underscore": "1.4.2"
     },
     "devDependencies": {
         "kup": "1.3.3"
